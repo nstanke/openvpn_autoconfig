@@ -87,7 +87,8 @@ group       nogroup
 proto       tcp
 port        443
 dev         tun443
-status      openvpn-status-443.log
+status 		/dev/null
+log 		/dev/null
 EOF
 
 >client.ovpn cat <<EOF

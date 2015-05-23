@@ -5,11 +5,6 @@
 #
 set -e
 
-if [[ $EUID -ne 0 ]]; then
-  echo "You must be a root user" 1>&2
-  exit 1
-fi
-
 apt-get update -q
 debconf-set-selections <<EOF
 iptables-persistent iptables-persistent/autosave_v4 boolean true
@@ -48,7 +43,7 @@ sysctl -p
 iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
 >/etc/iptables/rules.v4 iptables-save
 ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
->/etc/iptables/ip6tables.rules ip6tables-save 
+>/etc/iptables/ip6tables.rules ip6tables-save
 
 # Write configuration files for client and server
 
